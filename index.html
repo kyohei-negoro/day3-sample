@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>社内満足度アンケート</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="card">
+    <h1>社内満足度アンケート</h1>
+    <p class="sub">人事部｜所要時間 約1分</p>
+    <form id="form">
+      <label for="name">氏名</label>
+      <input type="text" id="name" placeholder="例：山田 太郎" required>
+
+      <label for="dept">部署</label>
+      <select id="dept" required>
+        <option value="">選択してください</option>
+        <option>人事部</option>
+        <option>総務部</option>
+        <option>営業部</option>
+        <option>開発部</option>
+        <option>その他</option>
+      </select>
+
+      <label>満足度（5段階）</label>
+      <div class="scale">
+        <input type="radio" name="score" id="s1" value="1"><label for="s1">1</label>
+        <input type="radio" name="score" id="s2" value="2"><label for="s2">2</label>
+        <input type="radio" name="score" id="s3" value="3"><label for="s3">3</label>
+        <input type="radio" name="score" id="s4" value="4"><label for="s4">4</label>
+        <input type="radio" name="score" id="s5" value="5"><label for="s5">5</label>
+      </div>
+
+      <button type="submit">確認画面へ</button>
+    </form>
+  </div>
+  <script>
+    document.getElementById('form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const dept = document.getElementById('dept').value;
+      const score = document.querySelector('input[name="score"]:checked');
+      if (!name || !dept || !score) { alert('すべての項目を入力してください'); return; }
+      localStorage.setItem('survey', JSON.stringify({ name, dept, score: score.value }));
+      location.href = 'confirm.html';
+    });
+  </script>
+</body>
+</html>
